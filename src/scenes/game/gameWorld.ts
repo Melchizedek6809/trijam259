@@ -1,4 +1,5 @@
 import { Scene } from 'phaser';
+import { Bunny } from './bunny';
 
 export class GameWorld {
     public tilemap: Phaser.Tilemaps.Tilemap;
@@ -6,6 +7,7 @@ export class GameWorld {
     public layer: Phaser.Tilemaps.TilemapLayer;
     public readonly width = 512;
     public readonly height = 512;
+    public bunnies: Set<Bunny> = new Set();
 
     private genInitialData(size = 512):number[][] {
         const ret = [];
@@ -33,6 +35,8 @@ export class GameWorld {
         const grr = (r-beachSize)*(r-beachSize)
         for(let cx=-r;cx<r;cx++){
             for(let cy=-r;cy<r;cy++){
+                const oldT = this.getTile(x+cx, y+cy);
+                if(oldT !== 0){continue;}
                 const dd = cx*cx + cy*cy;
                 if(dd < grr){
                     const rand = Math.random();
@@ -52,6 +56,13 @@ export class GameWorld {
 
     public worldgen(){
         this.spawnIsland(this.width/2 + 16, this.height/2 + 16, 16);
+        for(let i=0;i<8;i++){
+            const x = (this.width/2 * 32) + (Math.random()-0.5)*512 + 16*32;
+            const y = (this.height/2 * 32) + (Math.random()-0.5)*512  + 16*32;
+            const bunny = new Bunny(this, x, y);
+            this.bunnies.add(bunny);
+            this.scene.add.existing(bunny);
+        }
     }
 
     constructor(public scene: Scene) {
@@ -71,6 +82,7 @@ export class GameWorld {
             throw new Error("Cant creat layer");
         }
         this.layer = layer;
+        this.layer.setDepth(-10);
         this.worldgen();
     }
 }

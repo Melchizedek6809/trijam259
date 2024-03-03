@@ -103,6 +103,7 @@ export class LoadingScreenScene extends Scene {
         this.initLoadScreen();
         this.load.multiatlas('packed', 'gfx/packed.json', 'gfx');
         this.load.image('world-tiles', 'gfx/tileset.png')
+        this.load.image('bunny', 'gfx/bunny.png')
     }
 
     create() {
