@@ -28,6 +28,8 @@ export class GameScene extends Scene {
     playerX = 0;
     playerY = 0;
 
+    scoreText?: Phaser.GameObjects.Text;
+
     constructor(config: Phaser.Types.Scenes.SettingsConfig) {
         if (!config) {
             config = {};
@@ -39,6 +41,7 @@ export class GameScene extends Scene {
 
     create() {
         const that = this;
+
         this.score = 0;
         this.sound.pauseOnBlur = false;
         this.world = new GameWorld(this);
@@ -71,6 +74,9 @@ export class GameScene extends Scene {
                 this.world?.setTile(x, y, 0);
             }
         }, this);
+
+        this.scoreText = this.add.text(16, 16, "Score: ", { fontSize: 64, color: '#000000' });
+        this.scoreText.setDepth(1000);
 
         //this.cameras.main.setBounds(0, 0, 1280, 720);
         //this.cameras.main.startFollow(this.player, false, 0.1, 0.1, 0, 0);

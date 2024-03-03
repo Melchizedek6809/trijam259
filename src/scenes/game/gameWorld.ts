@@ -40,9 +40,9 @@ export class GameWorld {
                 const dd = cx*cx + cy*cy;
                 if(dd < grr){
                     const rand = Math.random();
-                    if(rand < 0.04){
+                    if(rand < 0.2){
                         this.setTile(x+cx,y+cy,4);
-                    } else if(rand < 0.07){
+                    } else if(rand < 0.25){
                         this.setTile(x+cx,y+cy,5);
                     } else {
                         this.setTile(x+cx,y+cy,2);
