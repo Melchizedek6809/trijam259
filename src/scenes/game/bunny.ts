@@ -318,8 +318,6 @@ export class Bunny extends Phaser.GameObjects.Sprite {
                 }
             }
             break;
-        case "drowning":
-            break;
         }
         if(!this.goal){
             this.vx = this.vx * 0.9;
