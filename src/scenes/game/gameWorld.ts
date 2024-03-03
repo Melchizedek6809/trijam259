@@ -23,6 +23,10 @@ export class GameWorld {
         this.tilemap.putTileAt(tile,x,y);
     }
 
+    public getTile(x:number, y:number) {
+        return this.tilemap.getTileAt(x,y)?.index || 0;
+    }
+
     public spawnIsland(x:number, y:number, r:number) {
         const rr = r*r;
         const beachSize = 2;

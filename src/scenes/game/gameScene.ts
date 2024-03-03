@@ -56,6 +56,22 @@ export class GameScene extends Scene {
         this.playerX = (this.world.width / 2) * 32;
         this.playerY = (this.world.height / 2) * 32;
 
+        this.input.mouse?.disableContextMenu();
+        this.input.on('pointermove', (pointer:any) => {
+            const x = (pointer.worldX/32)|0;
+            const y = (pointer.worldY/32)|0;
+            if(pointer.buttons & 1){
+                const t = this.world?.getTile(x,y) || 0;
+                console.log(t);
+                if(t === 0){
+                    this.world?.setTile(x, y, 1);
+                }
+            }
+            if(pointer.buttons & 2){
+                this.world?.setTile(x, y, 0);
+            }
+        }, this);
+
         //this.cameras.main.setBounds(0, 0, 1280, 720);
         //this.cameras.main.startFollow(this.player, false, 0.1, 0.1, 0, 0);
     }
